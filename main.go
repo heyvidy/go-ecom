@@ -12,15 +12,13 @@ func main() {
 	db = models.InitializeDB(db)
 
 	admin := models.User{
-		Name:     "Chandra Vivek",
-		Password: "xyzd",
-		Email:    "vivs@speckbit.com",
-		Phno:     "1234567890"}
 
-	// admin.CreateUser(db)
+		Password: "amazon_vd_123",
+		Email:    "vd3@speckbit.com",
+		Phno:     "123"}
 
+	// models.CreateUser(db, &admin)
 	// models.DeleteUser(db, "vd")
-	models.GetAllUsers(db)
-	models.UpdateUser(db, "vivek", &admin)
+	models.UpdateUser(db, "vd", &admin)
 	models.GetAllUsers(db)
 }
