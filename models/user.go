@@ -44,6 +44,7 @@ func CreateUser(db *sql.DB, data *User) {
 }
 
 func GetAllUsers(db *sql.DB) {
+	fmt.Print("\n\n")
 	users, err := db.Query("SELECT * FROM user")
 	printError(err)
 
@@ -55,6 +56,7 @@ func GetAllUsers(db *sql.DB) {
 
 		fmt.Println(user)
 	}
+	fmt.Print("\n\n")
 }
 
 func DeleteUser(db *sql.DB, username string) {
@@ -95,9 +97,21 @@ func UpdateUser(db *sql.DB, username string, data *User) {
 
 		if field != "" {
 			if count < len(user) {
-				query += fmt.Sprint(strings.ToLower(field), "=", "'", value, `',`)
+				switch v := value.(type) {
+				case string:
+					fmt.Printf("%T", v)
+					query += fmt.Sprint(strings.ToLower(field), "=", "'", value, `',`)
+				default:
+					query += fmt.Sprint(strings.ToLower(field), "=", value, `,`)
+				}
 			} else {
-				query += fmt.Sprint(strings.ToLower(field), "=", "'", value, `' `)
+				switch v := value.(type) {
+				case string:
+					fmt.Printf("%T", v)
+					query += fmt.Sprint(strings.ToLower(field), "=", "'", value, `' `)
+				default:
+					query += fmt.Sprint(strings.ToLower(field), "=", value, ` `)
+				}
 
 			}
 		}
